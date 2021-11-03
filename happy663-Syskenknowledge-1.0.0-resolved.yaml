@@ -10,18 +10,18 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 servers:
-- url: https://virtserver.swaggerhub.com/happy663/Syskenknowledge/1.0.0
-  description: SwaggerHub API Auto Mocking
+  - url: https://virtserver.swaggerhub.com/happy663/Syskenknowledge/1.0.0
+    description: SwaggerHub API Auto Mocking
 tags:
-- name: thread
-  description: Secured Admin-only calls
-- name: developers
-  description: Operations available to regular developers
+  - name: thread
+    description: Secured Admin-only calls
+  - name: developers
+    description: Operations available to regular developers
 paths:
   /thread/create:
     post:
       tags:
-      - thread
+        - thread
       summary: スレッドを立てるAPI
       description: ユーザからスレッド名を受け取ってスレッドを立てる
       operationId: addInventory
@@ -30,24 +30,115 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateThead'
+              $ref: "#/components/schemas/CreateThead"
       responses:
         "201":
           description: Inventory item to add
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateTheadResponse'
+                $ref: "#/components/schemas/CreateTheadResponse"
         "400":
           description: invalid input, object invalid
+
+  /thread/delete:
+    delete:
+      tags:
+        - thread
+      summary: スレッドを削除するAPI
+      description: ユーザ自身が作成したスレッドを削除する
+      operationId: addInventory
+      requestBody:
+        description: Inventory item to add
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Deleate"
+      responses:
+        "201":
+          description: Inventory item to add
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DleateResponse"
+        "400":
+          description: invalid input, object invalid
+          # produces:
+          # - "apllication/json"
+          # parameters:
+          # - name: "id"
+          #   in: "path"
+          #   description: "削除対象の商品id"
+          #   required: true
+          #   type: "integer"
+          # responses:
+          #   204:
+          #     description: "削除の戻り値"
+
+    # delete:
+    #   tags:
+    #   - "products"
+    #   summary: "商品情報削除"
+    #   description: "URIで指定したidのproductsテーブルの商品情報を削除する"
+    #   produces:
+    #   - "apllication/json"
+    #   parameters:
+    #   - name: "id"
+    #     in: "path"
+    #     description: "削除対象の商品id"
+    #     required: true
+    #     type: "integer"
+    #   responses:
+    #     204:
+    #       description: "削除の戻り値"
+
+  /less:
+    get:
+      tags:
+        - less
+      summary: レスの情報を受け取るAPI
+      description: レスの情報を受け取るAPI
+      parameters: []
+      responses:
+        "200":
+          description: invalid input, object invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/SendLess"
+                # example:
+
+    post:
+      tags:
+        - less
+      summary: レスを送るAPI
+      description: ユーザが入力した内容をスレッドに投稿
+      requestBody:
+        description: Inventory item to add
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateThead"
+      responses:
+        "201":
+          description: Inventory item to add
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateTheadResponse"
+        "400":
+          description: invalid input, object invalid
+
 components:
   schemas:
     CreateThead:
       required:
-      - date
-      - ipAddress
-      - sentence
-      - title
+        - date
+        - ipAddress
+        - sentence
+        - title
       type: object
       properties:
         title:
@@ -62,15 +153,15 @@ components:
           example: 122.135.235.47
         macAddress:
           type: string
-          example: '#EAJOUJASD'
+          example: "#EAJOUJASD"
         date:
           type: string
           format: date-time
           example: 2016-08-29T09:12:33.001Z
     CreateTheadResponse:
       required:
-      - date
-      - id
+        - date
+        - id
       type: object
       properties:
         id:
@@ -80,12 +171,33 @@ components:
           type: string
           format: date-time
           example: 2016-08-29T09:12:33.001Z
+    SendLess:
+      required:
+        - date
+        - ipAddress
+        - sentence
+      type: object
+      properties:
+        sentence:
+          type: string
+          example: まずお昼ご飯が何か思い出そ
+        ipAddress:
+          type: string
+          format: ipv4
+          example: 122.135.235.47
+        macAddress:
+          type: string
+          example: "#EAJOUJASD"
+        date:
+          type: string
+          format: date-time
+          example: 2016-08-29T09:12:33.001Z
     InventoryItem:
       required:
-      - id
-      - manufacturer
-      - name
-      - releaseDate
+        - id
+        - manufacturer
+        - name
+        - releaseDate
       type: object
       properties:
         id:
@@ -100,10 +212,10 @@ components:
           format: date-time
           example: 2016-08-29T09:12:33.001Z
         manufacturer:
-          $ref: '#/components/schemas/Manufacturer'
+          $ref: "#/components/schemas/Manufacturer"
     Manufacturer:
       required:
-      - name
+        - name
       type: object
       properties:
         name:
@@ -116,3 +228,29 @@ components:
         phone:
           type: string
           example: 408-867-5309
+
+    Deleate:
+      required:
+        - date
+        - ipAddress
+        - sentence
+        - title
+      type: object
+      properties:
+        title:
+          type: string
+          example: 朝ごはんについて
+        sentence:
+          type: string
+          example: 朝ごはんの内容が思い出せない助けて
+        ipAddress:
+          type: string
+          format: ipv4
+          example: 122.135.235.47
+        macAddress:
+          type: string
+          example: "#EAJOUJASD"
+        date:
+          type: string
+          format: date-time
+          example: 2016-08-29T09:12:33.001Z
