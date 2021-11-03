@@ -7,6 +7,8 @@ services:
     tty: true # コンテナの永続化
     volumes:
       - ./go:/go/src/app # マウントディレクトリ
+    ports:
+      - 8080:8080
   db:
     image: mysql:5.7
     container_name: mysql_host
