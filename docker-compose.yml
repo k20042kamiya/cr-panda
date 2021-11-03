@@ -7,7 +7,6 @@ services:
     tty: true # コンテナの永続化
     volumes:
       - ./go:/go/src/app # マウントディレクトリ
-
   db:
     image: mysql:5.7
     container_name: mysql_host
@@ -19,7 +18,7 @@ services:
       TZ: "Asia/Tokyo"
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
-      - ./db/data:/var/lib/mysql #./db/data: と　/var/lib/mysqlをリンクしている
+      - ./db/data:/var/lib/mysql #./db/data: と/var/lib/mysqlをリンクしている
       - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
       - ./db/sql:/docker-entrypoint-initdb.d
     ports:
