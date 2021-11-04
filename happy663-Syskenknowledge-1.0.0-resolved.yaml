@@ -1,4 +1,3 @@
----
 openapi: 3.0.0
 info:
   title: SyskenKnowledge
@@ -15,10 +14,23 @@ servers:
 tags:
   - name: thread
     description: Secured Admin-only calls
-  - name: developers
+  - name: res
     description: Operations available to regular developers
 paths:
-  /thread/create:
+  /thread:
+    get:
+      tags:
+        - thread
+      summary: スレッドの情報を受け取るAPI
+      description: スレッドの情報を受け取るAPI
+      parameters: []
+      responses:
+        200:
+          description: invalid input, object invalid
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetThread"
     post:
       tags:
         - thread
@@ -30,51 +42,53 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateThead"
+              $ref: "#/components/schemas/CreateThread"
       responses:
-        "201":
+        201:
           description: Inventory item to add
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CreateTheadResponse"
-        "400":
+                $ref: "#/components/schemas/CreateThreadResponse"
+        400:
           description: invalid input, object invalid
-
-  /thread/delete:
+  /thread/{id}:
     delete:
       tags:
         - thread
       summary: スレッドを削除するAPI
       description: ユーザ自身が作成したスレッドを削除する
-      operationId: addInventory
-      requestBody:
-        description: Inventory item to add
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Deleate"
+      parameters:
+        - name: id
+          in: path
+          description: 削除対象のスレッド
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Delete"
       responses:
-        "201":
+        201:
           description: Inventory item to add
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DleateResponse"
-        "400":
-          description: invalid input, object invalid
-          # produces:
-          # - "apllication/json"
-          # parameters:
-          # - name: "id"
-          #   in: "path"
-          #   description: "削除対象の商品id"
-          #   required: true
-          #   type: "integer"
-          # responses:
-          #   204:
-          #     description: "削除の戻り値"
-
+                $ref: "#/components/schemas/ResponseDelete"
+        400:
+          description:
+            invalid input, object invalid
+            # example:
+        # produces:
+        # - "apllication/json"
+        # parameters:
+        # - name: "id"
+        #   in: "path"
+        #   description: "削除対象の商品id"
+        #   required: true
+        #   type: "integer"
+        # responses:
+        #   204:
+        #     description: "削除の戻り値"
     # delete:
     #   tags:
     #   - "products"
@@ -91,28 +105,24 @@ paths:
     #   responses:
     #     204:
     #       description: "削除の戻り値"
-
-  /less:
+  /thread/res:
     get:
       tags:
-        - less
+        - res
       summary: レスの情報を受け取るAPI
       description: レスの情報を受け取るAPI
       parameters: []
       responses:
-        "200":
+        200:
           description: invalid input, object invalid
           content:
             application/json:
               schema:
-                type: object
-                items:
-                  $ref: "#/components/schemas/SendLess"
-                # example:
-
+                $ref: "#/components/schemas/GetLess"
+              # example:
     post:
       tags:
-        - less
+        - res
       summary: レスを送るAPI
       description: ユーザが入力した内容をスレッドに投稿
       requestBody:
@@ -120,20 +130,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateThead"
+              $ref: "#/components/schemas/PostLess"
       responses:
-        "201":
+        201:
           description: Inventory item to add
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CreateTheadResponse"
-        "400":
+                $ref: "#/components/schemas/CreateThreadResponse"
+        400:
           description: invalid input, object invalid
-
 components:
   schemas:
-    CreateThead:
+    CreateThread:
       required:
         - date
         - ipAddress
@@ -158,7 +167,7 @@ components:
           type: string
           format: date-time
           example: 2016-08-29T09:12:33.001Z
-    CreateTheadResponse:
+    CreateThreadResponse:
       required:
         - date
         - id
@@ -171,7 +180,7 @@ components:
           type: string
           format: date-time
           example: 2016-08-29T09:12:33.001Z
-    SendLess:
+    PostLess:
       required:
         - date
         - ipAddress
@@ -188,6 +197,23 @@ components:
         macAddress:
           type: string
           example: "#EAJOUJASD"
+        date:
+          type: string
+          format: date-time
+          example: 2016-08-29T09:12:33.001Z
+    GetLess:
+      required:
+        - date
+        - id
+        - sentence
+      type: object
+      properties:
+        sentence:
+          type: string
+          example: まずお昼ご飯が何か思い出そ
+        id:
+          type: string
+          example: 1
         date:
           type: string
           format: date-time
@@ -228,28 +254,39 @@ components:
         phone:
           type: string
           example: 408-867-5309
-
-    Deleate:
+    Delete:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          example: ""
+    ResponseDelete:
+      required:
+        - scssec
+      type: object
+      properties:
+        scssec:
+          type: string
+          example: 成功
+    GetThread:
       required:
         - date
-        - ipAddress
+        - id
         - sentence
         - title
       type: object
       properties:
         title:
           type: string
-          example: 朝ごはんについて
+          example: 今日の朝ごはんについて
+        id:
+          type: string
+          example: ""
         sentence:
           type: string
-          example: 朝ごはんの内容が思い出せない助けて
-        ipAddress:
-          type: string
-          format: ipv4
-          example: 122.135.235.47
-        macAddress:
-          type: string
-          example: "#EAJOUJASD"
+          example: 今日の朝ごはんの内容が思い出せない助けて
         date:
           type: string
           format: date-time
