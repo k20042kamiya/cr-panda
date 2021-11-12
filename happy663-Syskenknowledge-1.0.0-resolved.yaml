@@ -77,34 +77,6 @@ paths:
         400:
           description:
             invalid input, object invalid
-            # example:
-        # produces:
-        # - "apllication/json"
-        # parameters:
-        # - name: "id"
-        #   in: "path"
-        #   description: "削除対象の商品id"
-        #   required: true
-        #   type: "integer"
-        # responses:
-        #   204:
-        #     description: "削除の戻り値"
-    # delete:
-    #   tags:
-    #   - "products"
-    #   summary: "商品情報削除"
-    #   description: "URIで指定したidのproductsテーブルの商品情報を削除する"
-    #   produces:
-    #   - "apllication/json"
-    #   parameters:
-    #   - name: "id"
-    #     in: "path"
-    #     description: "削除対象の商品id"
-    #     required: true
-    #     type: "integer"
-    #   responses:
-    #     204:
-    #       description: "削除の戻り値"
   /thread/res:
     get:
       tags:
@@ -140,6 +112,56 @@ paths:
                 $ref: "#/components/schemas/CreateThreadResponse"
         400:
           description: invalid input, object invalid
+
+
+  /user:
+    post:
+      tags: 
+        - users
+      summary: Create a new User
+      description: Create a new User
+      parameters: []
+      requestBody: # リクエストボディ
+        description: user to create
+        content:
+          application/json:
+            schema: # POSTするオブジェクト
+              $ref: '#/components/schemas/User'
+            example:
+              id: 3
+              name: Richard Roe
+      responses:
+        '201':
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserRes"
+  /users/{userId}:
+    get:
+      tags:
+        - users
+      summary: Get user by ID.
+      description: Returns a single User model
+      parameters: # リクエストパラメータ
+        - name: userId
+          in: path # パラメータをパス内に含める
+          description: user id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A single User model
+          content:
+            application/json:
+              schema: 
+                type: object
+                items:
+                  $ref: '#/components/schemas/User'
+                example:
+                  name: kensuke
+                  password: hogehoge
 components:
   schemas:
     CreateThread:
@@ -291,3 +313,23 @@ components:
           type: string
           format: date-time
           example: 2016-08-29T09:12:33.001Z
+    User:
+      required:
+        - name
+        - password
+      type: object
+      properties:
+        name:
+          type: string
+          example: ""
+        password:
+          type: string
+          example: ""
+    UserRes:
+      required:
+        - token
+      type: object
+      properties:
+        token:
+          type: string
+          example: "sakjfkljdsakj"
