@@ -9,7 +9,7 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 servers:
-  - url: https://virtserver.swaggerhub.com/happy663/Syskenknowledge/1.0.0
+  - url: 'http://localhost:8003'
     description: SwaggerHub API Auto Mocking
 tags:
   - name: thread

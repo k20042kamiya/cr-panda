@@ -25,3 +25,25 @@ services:
       - ./db/sql:/docker-entrypoint-initdb.d
     ports:
       - 3306:3306
+  swagger-editor:
+    image: swaggerapi/swagger-editor
+    container_name: "swagger-editor"
+    ports:
+      - "8001:8080"
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: "swagger-ui"
+    ports:
+      - "8002:8080"
+    volumes:
+      - ./api/openapi.yaml:/openapi.yaml
+    environment:
+      SWAGGER_JSON: /openapi.yaml
+  swagger-api:
+    image: stoplight/prism:3
+    container_name: "swagger-api"
+    ports:
+      - 8000:4010
+    command: mock -h 0.0.0.0 /openapi.yaml
+    volumes:
+      - ./openapi.yaml:/openapi.yaml
