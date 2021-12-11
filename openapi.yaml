@@ -90,7 +90,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GetLess"
+                type: array
+                items:
+                  $ref: "#/components/schemas/GetLess"
               # example:
     post:
       tags:
@@ -113,56 +115,55 @@ paths:
         400:
           description: invalid input, object invalid
 
-
-  /user:
+  /favarite/{token}:
+    get:
+      tags:
+        - favarite
+      summary: お気に入り登録したものを受け取るAPI
+      parameters:
+        - $ref: '#/components/parameters/Favarite'
+      responses:
+        200:
+          description: invalid input, object invalid
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GetFavarite"
+  /favarite:
     post:
       tags: 
-        - users
-      summary: Create a new User
-      description: Create a new User
+        - favarite
+      summary: お気に入り登録
+      description: お気に入り登録
       parameters: []
       requestBody: # リクエストボディ
         description: user to create
         content:
           application/json:
             schema: # POSTするオブジェクト
-              $ref: '#/components/schemas/User'
+              $ref: '#/components/schemas/Favarite'
             example:
-              id: 3
-              name: Richard Roe
+              title: 今日の朝ごはんについて
+              token: adsfkjlsdkf
       responses:
-        '201':
+        '200':
           description: CREATED
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/UserRes"
-  /users/{userId}:
-    get:
-      tags:
-        - users
-      summary: Get user by ID.
-      description: Returns a single User model
-      parameters: # リクエストパラメータ
-        - name: userId
-          in: path # パラメータをパス内に含める
-          description: user id
-          required: true
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: A single User model
-          content:
-            application/json:
-              schema: 
-                type: object
-                items:
-                  $ref: '#/components/schemas/User'
-                example:
-                  name: kensuke
-                  password: hogehoge
+                $ref: "#/components/schemas/ResFavarite"
+
 components:
+  parameters:
+    Favarite:
+      name: token
+      in: path
+      description: token
+      required: true
+      schema:
+        type: string
   schemas:
     CreateThread:
       required:
@@ -313,23 +314,40 @@ components:
           type: string
           format: date-time
           example: 2016-08-29T09:12:33.001Z
-    User:
+    Favarite:
       required:
-        - name
-        - password
-      type: object
-      properties:
-        name:
-          type: string
-          example: ""
-        password:
-          type: string
-          example: ""
-    UserRes:
-      required:
+        - title
         - token
       type: object
       properties:
+        title:
+          type: string
+          example: "ken"
         token:
           type: string
-          example: "sakjfkljdsakj"
+          example: ""
+    GetFavarite:
+      required:
+        - title
+        - url
+        - token
+      type: object
+      properties:
+        title:
+          type: string
+          example: "今日の朝ごはんについて"
+        url:
+          type: string
+          format: url
+          example: https://www.acme-corp.com
+        token:
+          type: string
+          example: "dafkjdfljdasd"
+    ResFavarite:
+      required:
+        - message
+      type: object
+      properties:
+        message:
+          type: string
+          example: "お気に入り登録成功"
