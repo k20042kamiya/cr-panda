@@ -3,26 +3,62 @@ import Button from "../components/button";
 const header = () => {
   return (
     <div>
-      <div className="lg:pb-3 bg-original-blue">
-        <div className="px-4 md:px-8 mx-auto max-w-screen-2xl ">
-          <header className="flex justify-between items-center py-4">
+      <div className="lg:pb-3 bg-original-blue ">
+        <div className="px-2 md:px-8 pt-2 mx-auto">
+          <header
+            className="grid grid-cols-12 py-1
+          "
+          >
             <a
               href="/s"
-              className="inline-flex gap-2.5 items-center text-2xl md:text-3xl font-bold "
+              className="col-span-4 font-tourney text-2xl md:text-3xl "
               aria-label="logo"
             >
-              <svg
-                width="95"
-                height="94"
-                viewBox="0 0 95 94"
-                className="w-6 h-auto text-indigo-500"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M96 0V47L48 94H0V47L48 0H96Z" />
-              </svg>
-              Flowrift
+              Syskenknowledge
             </a>
+            <div className="relative col-span-4">
+              <input
+                className="block py-3 px-4 w-full leading-tight text-gray-700 bg-white focus:bg-white rounded-full border border-gray-200 focus:border-gray-500 appearance-none focus:outline-none"
+                id="grid-last-name"
+                type="text"
+                placeholder="検索"
+              />
+              <button className="absolute top-2 right-2">
+                <svg
+                  className="w-8 h-8 text-red-500"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2"
+                  stroke="currentColor"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  {" "}
+                  <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                  <circle cx="10" cy="10" r="7" />{" "}
+                  <line x1="21" y1="21" x2="15" y2="15" />
+                </svg>
+              </button>
+            </div>
+            <div className="col-start-10">
+              <button className="py-2 px-4 font-bold text-black bg-white hover:bg-gray-100 rounded-full">
+                スレ立て
+              </button>
+            </div>
+
+            <div className="col-start-12">
+              <button className="py-2 px-4 font-bold text-black bg-white hover:bg-gray-100 rounded-full">
+                ログイン
+              </button>
+            </div>
+
+            <div className="col-start-13">
+              <button className="py-2 px-4 font-bold text-black bg-white hover:bg-gray-100 rounded-full">
+                登録
+              </button>
+            </div>
 
             {/* <a
                 href="#"
@@ -83,17 +119,7 @@ const header = () => {
               </a>
             </div> */}
 
-            <div className="p-2 m-1 w-48 text-center text-white bg-blue-400">
-              1
-            </div>
-            <div className="p-2 m-1 w-48 text-center text-white bg-blue-400">
-              2
-            </div>
-            <div className="p-2 m-1 w-48 text-center text-white bg-blue-400">
-              3
-            </div>
-
-            <button
+            {/* <button
               type="button"
               className="inline-flex lg:hidden gap-2 items-center py-2 px-2.5 text-sm md:text-base font-semibold text-gray-500 active:text-gray-700 bg-gray-200 hover:bg-gray-300 rounded-lg focus-visible:ring ring-indigo-300"
             >
@@ -110,7 +136,7 @@ const header = () => {
                 />
               </svg>
               Menu
-            </button>
+            </button> */}
           </header>
         </div>
       </div>

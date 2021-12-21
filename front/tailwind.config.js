@@ -9,6 +9,11 @@ module.exports = {
     extend: {
       colors: {
         "original-blue": "#E6F2FE",
+        "original-gray": "#C4C4C4",
+        "original-white": "#f7f7f7",
+      },
+      fontFamily: {
+        tourney: ["tourney"],
       },
     },
   },
