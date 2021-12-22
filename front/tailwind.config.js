@@ -11,6 +11,7 @@ module.exports = {
         "original-blue": "#E6F2FE",
         "original-gray": "#C4C4C4",
         "original-white": "#f7f7f7",
+        "original-dayTime": "#696969",
       },
       fontFamily: {
         tourney: ["tourney"],

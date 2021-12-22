@@ -21,7 +21,7 @@ const test = () => {
           <div className="col-start-8 sm:col-start-7 md:col-start-8">
             <Card></Card>
           </div>
-          <div className="col-start-1">
+          {/* <div className="col-start-1">
             <Card></Card>
           </div>
           <div className="col-start-8 sm:col-start-7 md:col-start-8">
@@ -38,7 +38,7 @@ const test = () => {
           </div>
           <div className="col-start-8 sm:col-start-7 md:col-start-8">
             <Card></Card>
-          </div>
+          </div> */}
         </div>
       </div>
     </Layout>
