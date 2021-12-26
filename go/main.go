@@ -1,45 +1,21 @@
 package main
 
 import (
-	"fmt"
+	"io"
+	"log"
+	"net/http"
 )
 
 func main() {
-	fmt.Println("hello")
-	arr := Input()
-	fmt.Println(arr)
-
-}
-
-//クイックソートを配列で返す
-func QuickSort(arr []int) []int {
-	if len(arr) < 2 {
-		return arr
+	h1 := func(w http.ResponseWriter, _ *http.Request) {
+		io.WriteString(w, "Hello from a HandleFunc #1!\n")
+	}
+	h2 := func(w http.ResponseWriter, _ *http.Request) {
+		io.WriteString(w, "Hello from a HandleFunc #2!\n")
 	}
 
-	pivot := arr[0]
-	var left, right []int
-	for _, v := range arr[1:] {
-		if v <= pivot {
-			left = append(left, v)
+	http.HandleFunc("/", h1)
+	http.HandleFunc("/endpoint", h2)
 
-		} else {
-			right = append(right, v)
-		}
-	}
-
-	return append(append(QuickSort(left), pivot), QuickSort(right)...)
-
-}
-
-//スペースで区切られた整数の入力
-func Input() []int {
-	var n, tmp int
-	fmt.Scan(&n)
-	arr := make([]int, n)
-	for i := 0; i < n; i++ {
-		fmt.Scan(&tmp)
-		arr[i] = tmp
-	}
-	return arr
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
