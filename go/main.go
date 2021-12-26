@@ -1,6 +1,7 @@
 package main
 
 import (
+<<<<<<< Updated upstream
 	"io"
 	"log"
 	"net/http"
@@ -18,4 +19,20 @@ func main() {
 	http.HandleFunc("/endpoint", h2)
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
+=======
+	"log"
+	"net/http"
+
+	"github.com/k20042kamiya/cr-panda/apifunc"
+)
+
+func main() {
+	// // 8080ポートで起動
+	http.HandleFunc("/", apifunc.ThreadFunc)
+	http.ListenAndServe(":8080", nil)
+	log.Fatal(http.ListenAndServe(":8080", nil))
+	// // POSTのみ許可.
+	// http.HandleFunc("/onlyPost",handleOnlyPost)
+
+>>>>>>> Stashed changes
 }
