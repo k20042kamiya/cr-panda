@@ -1,6 +1,9 @@
+import { Dialog, Transition } from "@headlessui/react";
+import { Fragment, useState } from "react";
 import Button from "../components/button";
+import ThreadButton from "./threadButton";
 
-const header = () => {
+const Header = () => {
   return (
     <div>
       <div className="lg:pb-3 bg-original-blue ">
@@ -42,13 +45,10 @@ const header = () => {
                 </svg>
               </button>
             </div>
-            <div className="col-start-10">
-              <button className="py-2 px-4 font-bold text-black bg-white hover:bg-gray-100 rounded-full">
-                スレ立て
-              </button>
+            <div className="col-span-2 xl:col-span-1 col-start-9 lg:col-start-9">
+              <ThreadButton></ThreadButton>
             </div>
-
-            <div className="col-start-12">
+            <div className="col-span-2 xl:col-span-1 col-start-11 lg:col-start-11 xl:col-start-12">
               <button className="py-2 px-4 font-bold text-black bg-white hover:bg-gray-100 rounded-full">
                 ログイン
               </button>
@@ -144,4 +144,4 @@ const header = () => {
   );
 };
 
-export default header;
+export default Header;

@@ -3,6 +3,7 @@ import Card from "../components/card";
 import Figma from "../components/figma";
 import Header from "../components/header";
 import Layout from "../components/layout";
+import ThreadButton from "../components/threadButton";
 
 const test = () => {
   const style = {
@@ -15,10 +16,10 @@ const test = () => {
     <Layout>
       <div>
         <div className="grid grid-cols-12">
-          <div className="col-start-1">
+          <div className="col-span-11 sm:col-span-1 col-start-2 sm:col-start-1">
             <Card></Card>
           </div>
-          <div className="col-start-8 sm:col-start-7 md:col-start-8">
+          <div className="col-start-2 sm:col-start-7 md:col-start-8">
             <Card></Card>
           </div>
           {/* <div className="col-start-1">

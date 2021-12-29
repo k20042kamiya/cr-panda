@@ -50,7 +50,10 @@ const Card = () => {
         </div>
         <div className=" ml-2 text-left text-black">朝ごはん何食べた?</div>
         <div className="mt-20">
-          <div className="ml-2">レス数 :10 勢い :10</div>
+          <div className="flex ml-2">
+            レス数 :10
+            <div className="ml-4 text-red-400">勢い :10</div>
+          </div>
         </div>
       </div>
     </>
