@@ -17,5 +17,5 @@ func main() {
 	http.HandleFunc("/", h1)
 	http.HandleFunc("/endpoint", h2)
 
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":3000", nil))
 }
