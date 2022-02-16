@@ -36,13 +36,4 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	
-	
-
 }
-
-// func test() (int, int) {
-// 	a := 1
-// 	b := 2
-// 	return a, b
-// }
