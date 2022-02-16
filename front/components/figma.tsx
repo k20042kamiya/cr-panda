@@ -1,58 +1,43 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
+import styled from "styled-components";
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-.frame {
+const Frame1 = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   gap: 24px;
   background-color: #ffffff;
-}
-.rectangle-1 {
+`;
+const Rectangle1 = styled.div`
   height: 221px;
   width: 155px;
   background-color: #c4c4c4;
-}
-.text-1 {
+`;
+const text1 = styled.div`
   text-align: left;
   vertical-align: top;
   font-size: 30px;
   font-family: Roboto;
   line-height: auto;
   color: #000000;
-}
-.text-2 {
+`;
+const text2 = styled.div`
   text-align: left;
   vertical-align: top;
   font-size: 30px;
   font-family: Roboto;
   line-height: auto;
   color: #000000;
-}
-.button-row {
+`;
+const ButtonRow = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
   padding: 10px;
   gap: 10px;
-}
-.button-2 {
+`;
+const Button2 = styled.div`
   border-radius: 8px;
   display: flex;
   flex-direction: row;
@@ -60,16 +45,16 @@ a {
   align-items: flex-start;
   gap: 10px;
   background-color: #444444;
-}
-.text-3 {
+`;
+const Text = styled.div`
   text-align: left;
   vertical-align: top;
   font-size: 30px;
   font-family: Roboto;
   line-height: auto;
   color: #ffffff;
-}
-.button-1 {
+`;
+const Button1 = styled.div`
   border-radius: 8px;
   display: flex;
   flex-direction: row;
@@ -77,12 +62,32 @@ a {
   align-items: flex-start;
   gap: 10px;
   background-color: #444444;
-}
-.text-4 {
+`;
+const Text4 = styled.div`
   text-align: left;
   vertical-align: top;
   font-size: 30px;
   font-family: Roboto;
   line-height: auto;
   color: #ffffff;
-}
+`;
+
+const Figma: React.VFC = () => {
+  return (
+    <Frame1>
+      <Rectangle1 />
+      <Text>Title</Text>
+      <Text>Description</Text>
+      <ButtonRow>
+        <Button2>
+          <Text>6:30 PM</Text>
+        </Button2>
+        <Button1>
+          <Text>5:30 PM</Text>
+        </Button1>
+      </ButtonRow>
+    </Frame1>
+  );
+};
+
+export default Figma;

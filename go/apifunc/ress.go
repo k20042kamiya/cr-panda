@@ -2,7 +2,6 @@ package apifunc
 
 import (
 	"net/http"
-	
 )
 
 func ThredPost(){
