@@ -1,13 +1,11 @@
 package apifunc
 
 import (
-	"encoding/json"
+	"database/sql"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 
-	"github.com/k20042kamiya/cr-panda/dboperation"
-	"github.com/k20042kamiya/cr-panda/model"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func ThreadFunc(w http.ResponseWriter, r *http.Request) {
@@ -25,34 +23,37 @@ func ThreadFunc(w http.ResponseWriter, r *http.Request) {
 func postHandler(w http.ResponseWriter, r *http.Request) {
 	// レスポンスヘッダーとデータをhttp.ResponseWriterに書きこみ
 	// ioutilのReadAll関数を使って全てのbodyのデータを全て読み取る。
-	body, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		// http.StatusInternalServerErrorレスポンスを返す
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
-	var requestJSON model.ThreadRequest
-	// json.Unmarshal= json -> 構造体
-	if err := json.Unmarshal(body, &requestJSON); err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
+	// body, err := ioutil.ReadAll(r.Body)
+	// if err != nil {
+	// 	// http.StatusInternalServerErrorレスポンスを返す
+	// 	w.WriteHeader(http.StatusInternalServerError)
+	// 	return
+	// }
+	// var requestJSON model.ThreadRequest
+	// // json.Unmarshal= json -> 構造体
+	// if err := json.Unmarshal(body, &requestJSON); err != nil {
+	// 	w.WriteHeader(http.StatusBadRequest)
+	// 	return
+	// }
 
 	// thread :=  requestJSON.ToThread()
 	// if err := dboperation.CreateThread(thread); err != nil {
 	// 	panic(err)
 	// }
 
-	db := dboperation.Connect()
+	db, err := sql.Open("mysql", "root:root@tcp(127.0.0.1:3306)/test_database")
+
+	if err != nil {
+		panic(err)
+	}
+
 	defer db.Close()
 
-	dberr := db.Ping()
-
-	if dberr != nil {
-		fmt.Println("データベース接続失敗")
-		return
+	err = db.Ping()
+	if err != nil {
+		panic(err)
 	} else {
-		fmt.Println("データベース接続成功")
+		println("接続完了")
 	}
 
 }
