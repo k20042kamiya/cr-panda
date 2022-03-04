@@ -6,7 +6,8 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/k20042kamiya/cr-panda/tree/main/model"
+	"github.com/k20042kamiya/cr-panda/dboperation"
+	"github.com/k20042kamiya/cr-panda/model"
 )
 
 func ThreadFunc(w http.ResponseWriter, r *http.Request) {
@@ -30,10 +31,28 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	var requestJSON model.ThreadPostRequest
+	var requestJSON model.ThreadRequest
 	// json.Unmarshal= json -> 構造体
 	if err := json.Unmarshal(body, &requestJSON); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
+
+	// thread :=  requestJSON.ToThread()
+	// if err := dboperation.CreateThread(thread); err != nil {
+	// 	panic(err)
+	// }
+
+	db := dboperation.Connect()
+	defer db.Close()
+
+	dberr := db.Ping()
+
+	if dberr != nil {
+		fmt.Println("データベース接続失敗")
+		return
+	} else {
+		fmt.Println("データベース接続成功")
+	}
+
 }
