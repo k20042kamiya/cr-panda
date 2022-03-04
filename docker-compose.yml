@@ -4,6 +4,7 @@ services:
     build: # ビルドに使うDockerファイルのパス
       context: .
       dockerfile: ./go/dockerfile #相対パス
+    container_name: goapp
     tty: true # コンテナの永続化
     volumes:
       - ./go:/go/src/app # マウントディレクトリ
