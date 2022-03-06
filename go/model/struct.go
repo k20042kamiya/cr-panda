@@ -7,10 +7,9 @@ import (
 type DBTime struct {
 	time.Time
 }
-
-type ThreadPostRequest struct {
-	Title string `json:"title"`
-	ID int `json:"id"`     
+type ThreadPost struct {
+	Title    string `json:"title"`
+	ID       int    `json:"id"`
 	Sentence string `json:"Sentence"`
 	Date     DBTime `json:"date"`
 }
